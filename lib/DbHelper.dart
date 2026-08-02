@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 class Dbhelper {
@@ -17,9 +18,15 @@ class Dbhelper {
     return myDB!;
   }
 
-  Future<Database> openDB(){
+  Future<Database> openDB() async {
+    String dbPath = await join(getDatabasesPath(), "noteDB.db");
 
-    String dbPath = join()
+    return await openDatabase(dbPath, version: 3,
+      onCreate: (db, version) {
+        db.execute(
+          "CREATE TABLE $NOTE_TABLE ($NOTE_COLUMN_S_NO INTEGER PRIMARY KEY AUTOINCREMENT, $NOTE_COLUMN_TITLE TEXT,  )"
+        )
+      },
+    );
   }
-
 }
