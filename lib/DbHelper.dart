@@ -67,4 +67,8 @@ class Dbhelper {
 
     return mData;
   }
+
+  Future<bool> updateNote(int sNo, Map<String, dynamic> updateNote) async {
+    var db = await getDB();
+  }
 }
