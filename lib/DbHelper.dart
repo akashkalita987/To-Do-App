@@ -49,11 +49,13 @@ class Dbhelper {
     var db = await getDB();
 
     int rowsEffected = await db.insert(NOTE_TABLE, {
-      NOTE_COLUMN_TITLE : note[NOTE_COLUMN_TITLE],
-      NOTE_COLUMN_DESC : note[NOTE_COLUMN_DESC],
-      NOTE_COLUMN_TIME : note[NOTE_COLUMN_TIME],
-      NOTE_COLUMN_STATUS : note[NOTE_COLUMN_STATUS]
+      NOTE_COLUMN_TITLE: note[NOTE_COLUMN_TITLE],
+      NOTE_COLUMN_DESC: note[NOTE_COLUMN_DESC],
+      NOTE_COLUMN_TIME: note[NOTE_COLUMN_TIME],
+      NOTE_COLUMN_STATUS: note[NOTE_COLUMN_STATUS],
     });
+
+    return rowsEffected > 0;
   }
 
   //read Data
