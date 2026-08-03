@@ -12,6 +12,7 @@ class Dbhelper {
   static final String NOTE_COLUMN_TITLE = "title";
   static final String NOTE_COLUMN_DESC = "desc";
   static final String NOTE_COLUMN_TIME = "time";
+  static final String NOTE_COLUMN_STATUS = "status";
 
   Database? myDB;
 
@@ -25,17 +26,17 @@ class Dbhelper {
 
     return await openDatabase(
       dbPath,
-      version: 3,
+      version: 4,
       onCreate: (db, version) async {
         db.execute(
-          "CREATE TABLE $NOTE_TABLE ($NOTE_COLUMN_S_NO INTEGER PRIMARY KEY AUTOINCREMENT, $NOTE_COLUMN_TITLE TEXT, $NOTE_COLUMN_TIME TEXT)",
+          "CREATE TABLE $NOTE_TABLE ($NOTE_COLUMN_S_NO INTEGER PRIMARY KEY AUTOINCREMENT, $NOTE_COLUMN_TITLE TEXT, $NOTE_COLUMN_TIME TEXT, $NOTE_COLUMN_STATUS INTEGER DEFAULT 0)",
         );
       },
       onUpgrade: (db, oldVersion, newVersion) async {
-        if (oldVersion < 3) {
+        if (oldVersion < 4) {
           await db.execute("DROP TABLE IF EXISTS $NOTE_TABLE");
           await db.execute(
-            "CREATE TABLE $NOTE_TABLE ($NOTE_COLUMN_S_NO INTEGER PRIMARY KEY AUTOINCREMENT, $NOTE_COLUMN_TITLE TEXT, $NOTE_COLUMN_TIME TEXT)",
+            "CREATE TABLE $NOTE_TABLE ($NOTE_COLUMN_S_NO INTEGER PRIMARY KEY AUTOINCREMENT, $NOTE_COLUMN_TITLE TEXT, $NOTE_COLUMN_TIME TEXT, $NOTE_COLUMN_STATUS INTEGER DEFAULT 0)",
           );
         }
       },
@@ -44,20 +45,13 @@ class Dbhelper {
 
   //all queries
 
-  Future<bool> addNote({
-    required String mTitle,
-    required String mDesc,
-    required String mTime,
-  }) async {
+  Future<bool> addNote(Map<String, dynamic> note) async {
     var db = await getDB();
 
     int rowsEffected = await db.insert(NOTE_TABLE, {
-      NOTE_COLUMN_TITLE: mTitle,
-      NOTE_COLUMN_DESC: mDesc,
-      NOTE_COLUMN_TIME: mTime,
+      NOTE_COLUMN_TITLE : note[NOTE_COLUMN_TITLE],
+      
     });
-
-    return rowsEffected > 0;
   }
 
   //read Data
