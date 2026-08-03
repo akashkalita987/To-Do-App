@@ -10,6 +10,7 @@ class Dbhelper {
   static final String NOTE_COLUMN_S_NO = "s_no";
   static final String NOTE_COLUMN_TITLE = "title";
   static final String NOTE_COLUMN_DESC = "desc";
+  static final String NOTE_COLUMN_TIME = "time";
 
   Database? myDB;
 
