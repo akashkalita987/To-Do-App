@@ -42,17 +42,25 @@ class _MyHomePage extends State<MyHomePage> {
       ),
       body:allNotes.isNotEmpty ? ListView.builder(
         itemCount: allNotes.length,
-        itemBuilder: (context, index){
+        itemBuilder: (_, index){
             return ListTile(
               leading:  Text('${allNotes[index][Dbhelper.NOTE_COLUMN_S_NO]}'),
               title: Text('${allNotes[index][Dbhelper.NOTE_COLUMN_TITLE]}'),
-              subtitle: Text('${allNotes[index][Dbhelper.NOTE_COLUMN_DESC]}'),
+              subtitle: Text('${allNotes[index][Dbhelper.NOTE_COLUMN_TIME]}'),
             );
-          }
-        ),
+          },
+        ) : Center(child: Text("No Data yet"),),
+        floatingActionButton: FloatingActionButton(
+          onPressed: ),
     );
   }
 
   Widget getBottomSheetWidget()
 
 }
+
+
+
+
+
+
