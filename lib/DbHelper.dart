@@ -68,7 +68,17 @@ class Dbhelper {
     return mData;
   }
 
-  Future<bool> updateNote(int sNo, Map<String, dynamic> updateNote) async {
+  Future<bool> updateNote(int sNo, Map<String, dynamic>updatedNote) async {
     var db = await getDB();
+
+    int rowsEffected = await db.update(
+      NOTE_TABLE,
+      NOTE_TABLE,
+      updatedNote,
+      where: "$NOTE_COLUMN_S_NO",
+      whereArgs: [sNo],
+    );
+
+    return rowsEffected > 0;
   }
 }
