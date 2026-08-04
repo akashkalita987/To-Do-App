@@ -16,6 +16,8 @@ class _MyHomePage extends State<MyHomePage> {
 
   String errorMge = "";
 
+  int? editingSNo;
+
   List<Map<String, dynamic>> allNotes = [];
   Dbhelper? dbRef;
 
@@ -45,7 +47,7 @@ class _MyHomePage extends State<MyHomePage> {
       }
   }
 
-  void saveNote(){
+  void saveNote() async {
     if(timeController.text.trim().isEmpty){
       setState(() {
         errorMge = "Title can't be empty";
@@ -58,7 +60,45 @@ class _MyHomePage extends State<MyHomePage> {
       });
       return;
     }
+
+    Map<String, dynamic> note = {
+      Dbhelper.NOTE_COLUMN_TITLE : timeController.text.trim(),
+      Dbhelper.NOTE_COLUMN_DESC : descController.text.trim(),
+      Dbhelper.NOTE_COLUMN_TIME : timeController.text.trim()
+    };
+
+    if(editingSNo == null)  {
+      note[Dbhelper.NOTE_COLUMN_STATUS] = 0;
+      await dbRef!.addNote(note);
+    } else{
+      await dbRef!.updateNote(editingSNo!, note);
+    }
+
+    clearFields();
+    Navigator.of(context).pop();
+    getNotes();
   }
+
+  void deleteNote(int sNo)async{
+    await dbRef!.deleteNote(sNo);
+    getNotes();
+  }
+
+  void toggleeStatus(Map<Strinf, dynamic>note, bool? value) async {
+    Map<String, dynamic> updated = {
+      Dbhelper.NOTE_COLUMN_TITLE : note[Dbhelper.NOTE_COLUMN_TITLE],
+      Dbhelper.NOTE_COLUMN_DESC : note[Dbhelper.NOTE_COLUMN_DESC],
+      Dbhelper.NOTE_COLUMN_TIME : note[Dbhelper.NOTE_COLUMN_TIME],
+      Dbhelper.NOTE_COLUMN_STATUS : (value == true) ? 1 : 0,
+
+    };
+
+    await dbRef!.updateNote(note[Dbhelper.NOTE_COLUMN_S_NO], updated);
+    getNotes();
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
