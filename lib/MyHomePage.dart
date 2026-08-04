@@ -34,6 +34,16 @@ class _MyHomePage extends State<MyHomePage> {
   }
 
   //-----------time picked--------------//
+  Future<void> pickTime() async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now());
+
+
+      if(picked != null){
+        timeController.text = picked.format(context);
+      }
+  }
 
   @override
   Widget build(BuildContext context) {
