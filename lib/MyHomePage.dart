@@ -105,7 +105,21 @@ class _MyHomePage extends State<MyHomePage> {
     editingSNo = null;
   }
 
-
+void openBottomSheetForNew(){
+  clearFields();
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top : Radius.circular(16)),
+    ),
+    builder: (_) => getBottomSheetWidget(),
+    ).whenComplete((){
+      setState(() {
+        
+      });
+    });
+}
 
   @override
   Widget build(BuildContext context) {
