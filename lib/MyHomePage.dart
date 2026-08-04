@@ -159,9 +159,125 @@ void openBottomSheetForNew(){
     );
   }
 
-  Widget getBottomSheetWidget()
+ @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("To Do List"),
+        backgroundColor: Colors.amber,
+      ),
+      body: allNotes.isNotEmpty
+          ? ListView.builder(
+        itemCount: allNotes.length,
+        itemBuilder: (_, index) {
+          final note = allNotes[index];
+          final bool isDone =
+              (note[Dbhelper.NOTE_COLUMN_STATUS] ?? 0) == 1;
 
+          return Dismissible(
+            key: Key(note[Dbhelper.NOTE_COLUMN_S_NO].toString()),
+            direction: DismissDirection.endToStart,
+            background: Container(
+              color: Colors.red,
+              alignment: Alignment.centerRight,
+              padding: EdgeInsets.only(right: 20),
+              child: Icon(Icons.delete, color: Colors.white),
+            ),
+            onDismissed: (_) {
+              deleteNote(note[Dbhelper.NOTE_COLUMN_S_NO]);
+            },
+            child: ListTile(
+              leading: Checkbox(
+                value: isDone,
+                onChanged: (value) => toggleStatus(note, value),
+              ),
+              title: Text(
+                '${note[Dbhelper.NOTE_COLUMN_TITLE]}',
+                style: TextStyle(
+                  decoration: isDone
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
+                ),
+              ),
+              subtitle: Text('${note[Dbhelper.NOTE_COLUMN_TIME]}'),
+              onTap: () => openBottomSheetForEdit(note),
+            ),
+          );
+        },
+      )
+          : Center(child: Text("No Data yet")),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.amber,
+        onPressed: openBottomSheetForNew,
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget getBottomSheetWidget() {
+    return Padding(
+      // pushes the sheet above the keyboard
+      padding: EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 16,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              editingSNo == null ? "Add Task" : "Edit Task",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 12),
+            TextField(
+              controller: titleController,
+              decoration: InputDecoration(
+                labelText: "Title",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 12),
+            TextField(
+              controller: descController,
+              maxLines: 2,
+              decoration: InputDecoration(
+                labelText: "Description (optional)",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 12),
+            TextField(
+              controller: timeController,
+              readOnly: true,
+              onTap: pickTime,
+              decoration: InputDecoration(
+                labelText: "Time",
+                border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.access_time),
+              ),
+            ),
+            if (errorMsg.isNotEmpty) ...[
+              SizedBox(height: 8),
+              Text(errorMsg, style: TextStyle(color: Colors.red)),
+            ],
+            SizedBox(height: 16),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+              onPressed: saveNote,
+              child: Text(editingSNo == null ? "Save" : "Update"),
+            ),
+            SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+  }
 }
+
 
 
 
