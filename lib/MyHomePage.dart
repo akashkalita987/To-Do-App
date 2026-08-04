@@ -97,6 +97,13 @@ class _MyHomePage extends State<MyHomePage> {
     getNotes();
   }
 
+  void clearFields(){
+    timeController.clear();
+    descController.clear();
+    timeController.clear();
+    errorMge = "";
+    editingSNo = null;
+  }
 
 
 
