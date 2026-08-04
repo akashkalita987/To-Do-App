@@ -45,6 +45,21 @@ class _MyHomePage extends State<MyHomePage> {
       }
   }
 
+  void saveNote(){
+    if(timeController.text.trim().isEmpty){
+      setState(() {
+        errorMge = "Title can't be empty";
+      });
+      return;
+    }
+    if(timeController.text.trim().isEmpty){
+      setState(() {
+        errorMge = "Please pick a time"; 
+      });
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
