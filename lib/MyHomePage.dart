@@ -84,7 +84,7 @@ class _MyHomePage extends State<MyHomePage> {
     getNotes();
   }
 
-  void toggleeStatus(Map<Strinf, dynamic>note, bool? value) async {
+  void toggleStatus(Map<Strinf, dynamic>note, bool? value) async {
     Map<String, dynamic> updated = {
       Dbhelper.NOTE_COLUMN_TITLE : note[Dbhelper.NOTE_COLUMN_TITLE],
       Dbhelper.NOTE_COLUMN_DESC : note[Dbhelper.NOTE_COLUMN_DESC],
@@ -260,9 +260,9 @@ void openBottomSheetForNew(){
                 suffixIcon: Icon(Icons.access_time),
               ),
             ),
-            if (errorMsg.isNotEmpty) ...[
+            if (errorMge.isNotEmpty) ...[
               SizedBox(height: 8),
-              Text(errorMsg, style: TextStyle(color: Colors.red)),
+              Text(errorMge, style: TextStyle(color: Colors.red)),
             ],
             SizedBox(height: 16),
             ElevatedButton(
