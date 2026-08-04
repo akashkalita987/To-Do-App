@@ -143,6 +143,22 @@ void openBottomSheetForNew(){
     );
   }
 
+  void openBottomSheetForEdit(Map<String, dynamic> note) {
+    editingSNo = note[Dbhelper.NOTE_COLUMN_S_NO];
+    titleController.text = note[Dbhelper.NOTE_COLUMN_TITLE] ?? "";
+    descController.text = note[Dbhelper.NOTE_COLUMN_DESC] ?? "";
+    timeController.text = note[Dbhelper.NOTE_COLUMN_TIME] ?? "";
+    errorMge = "";
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (_) => getBottomSheetWidget(),
+    );
+  }
+
   Widget getBottomSheetWidget()
 
 }
