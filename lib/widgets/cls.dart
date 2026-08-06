@@ -1,6 +1,5 @@
-class Profile {
-final String name;
-final int age;
-Profile({required this.name, required this.age});
+class AppColors {
+final int value;
+const AppColors(this.value); // const constructor
 }
-final profile = Profile(name: 'Ava', age: 28);
+const primary = AppColors(0xFF6200EE);
