@@ -13,3 +13,11 @@ _balance -= amount;
 print('Insufficient funds');
 }
 }
+}
+void main() {
+final account = BankAccount();
+account.deposit(100);
+account.withdraw(30);
+print(account.balance); // 70 — read through the getter, not the raw field
+// account._balance = 1000000; // Error: _balance is private, can't be set directly
+}
