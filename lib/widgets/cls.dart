@@ -1,10 +1,6 @@
-class Point {
-  double x;
-  double y;
-
-  Point(this.x, this.y);
-
-  Point.origin() : x = 0, y = 0;
+class Profile {
+final String name;
+final int age;
+Profile({required this.name, required this.age});
 }
-
-final p = Point.origin();
+final profile = Profile(name: 'Ava', age: 28);
