@@ -1,7 +1,9 @@
-int add(int a, int b) {
-  return a + b;
+void dis() {
+  print("hello bhai");
 }
 
 void main() {
-  print(add(5, 5));
+  for (int i = 0; i < 10; i++) {
+    dis();
+  }
 }
