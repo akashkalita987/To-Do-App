@@ -18,6 +18,10 @@ class student {
 
   student(this.name, this.roll);
 
+  void getData(){
+    
+  }
+
   void disData() {
     print(name);
     print(roll);
