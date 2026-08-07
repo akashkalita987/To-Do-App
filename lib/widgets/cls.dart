@@ -20,9 +20,7 @@ class student {
 
   student(this.name, this.roll);
 
-  void ge
-  }
-
+  
   void disData() {
     print(name);
     print(roll);
