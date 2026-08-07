@@ -1,3 +1,5 @@
+import 'dart:nativewrappers/_internal/vm/bin/common_patch.dart';
+
 class vehical {
   String name;
   int modelYear;
@@ -18,8 +20,7 @@ class student {
 
   student(this.name, this.roll);
 
-  void getData(){
-    
+  void ge
   }
 
   void disData() {
