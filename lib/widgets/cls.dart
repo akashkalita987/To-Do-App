@@ -1,4 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/bin/common_patch.dart';
 
 class vehical {
   String name;
