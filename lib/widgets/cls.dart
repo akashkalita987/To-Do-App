@@ -26,6 +26,7 @@ class student {
   }
 }
 
+
 void main() {
   vehical car1 = vehical("Alto800", 2007);
   car1.isValid();
