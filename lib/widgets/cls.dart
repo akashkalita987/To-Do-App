@@ -31,6 +31,7 @@ void main() {
   vehical car1 = vehical("Alto800", 2007);
   car1.isValid();
 
+
   student st1 = student("akash", 5);
   st1.disData();
 }
